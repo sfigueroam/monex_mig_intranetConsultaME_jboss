@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc-node label="Moneda Extranjera" url="blank.jsp">
+    <toc-node label="Consultas" url="blank.jsp">
+        <rol-allowed name="648" />
+        <toc-node label="Consulta Cuentas" url="../consultaCuentas/Controller.jpf" />
+        <toc-node label="Consulta Envíos" url="../consultaCuentas/envios.jsp" />
+        <toc-node label="Consulta Autorizados" url="../consultaCuentas/autorizados.jsp" />
+        <toc-node label="Casos Rectificados" url="../consultaCuentas/rectificados.jsp" />
+        <toc-node label="Periodos Contables" url="../pcontab/consultar/administrar.do">
+            <rol-allowed name="1608" />
+        </toc-node>
+        <toc-node label="Periodos Contables" url="../pcontab/consultar/consulta.do">
+            <rol-allowed name="1609" />
+        </toc-node>
+    </toc-node>
+    <toc-node label="Generar" url="blank.jsp">
+        <rol-allowed name="649" />
+        <!-- toc-node label="Cuadratura" url="../generar/cuadratura.jsp" / (DHN 16-05-2017) -->
+        <!--  toc-node label="Huinchas de pago SII" url="../generar/huinchaPagoSii.jsp" / (DHN 16-05-2017) -->
+        <toc-node label="Archivo de contabilidad" url="../generar/contabilidad.jsp" />
+    </toc-node>    
+    <!--  toc-node label="Egresos" url="../egresos/Controller.jpf">
+        <rol-allowed name="650" />
+    </toc-node (DHN 16-05-2017) --> 
+    <toc-node label="Movimientos" url="blank.jsp">
+        <toc-node label="Carga Autorizados" url="../Movimientos/Autorizados/Controller.jpf">
+            <rol-allowed name="1038" />
+        </toc-node>
+        <rol-allowed name="1038" />
+    </toc-node> 
+    <toc-node label="Ingresador" url="../Ingresador/Controller.jpf">
+        <rol-allowed name="651" />
+    </toc-node> 
+    <toc-node label="Administrar" url="blank.jsp" >
+        <toc-node label="Formularios" url="../Administrar/Formularios/Controller.jpf">
+            <rol-allowed name="662" />
+        </toc-node>
+        <toc-node label="IRAs" url="../Administrar/IRAs/Controller.jpf">
+            <rol-allowed name="703" />
+        </toc-node>
+        <rol-allowed name="662,703" />
+    </toc-node>
+</toc-node>

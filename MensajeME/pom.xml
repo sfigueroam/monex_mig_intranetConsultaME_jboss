@@ -1,0 +1,55 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>cl.gob.tgr.monex</groupId>
+  <artifactId>MensajeME</artifactId>
+  <version>1.0.0</version>
+  
+	<repositories>
+		<repository>
+			<id>maven-group</id>
+			<url>http://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-releases</url>
+		</repository>
+	</repositories>
+  
+  	<distributionManagement>
+		<snapshotRepository>
+			<id>nexus-snapshots</id>
+			<url>hhttp://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-snapshots</url>
+		</snapshotRepository>
+		<repository>
+			<id>nexus-releases</id>
+			<url>http://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-releases</url>
+		</repository>
+	</distributionManagement>
+
+  <build>
+    <finalName>MensajeME</finalName>
+    <sourceDirectory>src</sourceDirectory>
+    <resources>
+      <resource>
+        <directory>src</directory>
+        <excludes>
+          <exclude>**/*.java</exclude>
+        </excludes>
+      </resource>
+    </resources>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+  <dependencies>
+  	<dependency>
+  		<groupId>cl.gob.tgr.monex</groupId>
+  		<artifactId>xmlbeans-3.0.0</artifactId>
+  		<version>1.0.0</version>
+  		<scope>provided</scope>
+  	</dependency>
+  </dependencies>
+</project>

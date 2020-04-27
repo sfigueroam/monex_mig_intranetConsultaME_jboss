@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<!-- edited with XMLSPY v5 rel. 4 U (http://www.xmlspy.com) by Jose Aedo (Tesgral) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+    targetNamespace="http://tesoreria.cl/sii/MsgSII.xsd"
+    elementFormDefault="qualified">
+	<xs:element name="Message">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="MessageId">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Code" type="xs:string"/>
+							<xs:element name="MsgDesc" type="xs:string"/>
+							<xs:element name="Version" type="xs:long"/>
+							<!--xs:element name="FechaVersion" type="xs:string"/-->
+							<xs:element name="FromAddress" type="xs:string"/>
+							<xs:element name="ToAddress" type="xs:string"/>
+							<xs:element name="RefAddress" type="xs:decimal"/>
+							<!--xs:element name="DateTime" type="xs:string"/-->
+							<xs:element name="Validado" type="xs:string"/>
+							<xs:element name="Number" type="xs:decimal"/>
+							<!--xs:element name="PeriodoContable" type="xs:decimal"/-->
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="Detalle">
+					<xs:complexType>
+						<xs:sequence>
+                            <xs:element name="TipoRegistro" type="xs:decimal"/>
+                            <xs:element name="RutIra" type="xs:decimal"/>
+                            <xs:element name="DvIra" type="xs:string"/>
+                            <xs:element name="FolioF01" type="xs:decimal"/>
+                            <xs:element name="FechaRecepcion" type="xs:decimal"/>
+                            <xs:element name="RutContr" type="xs:decimal"/>
+                            <xs:element name="DvContr" type="xs:string"/>
+                            <xs:element name="Formulario" type="xs:decimal"/>
+                            <xs:element name="Folio" type="xs:decimal"/>
+                            <xs:element name="Periodo" type="xs:decimal"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Resultado">
+					<xs:complexType>
+						<xs:sequence>
+                            <xs:element name="Aprobacion" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="Errores" minOccurs="0" maxOccurs="1">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="Error" maxOccurs="unbounded">
+                                <xs:complexType>
+                                    <xs:sequence>
+                                        <xs:element name="ErrorNro" type="xs:decimal" nillable="false"/>
+                                        <xs:element name="Formulario" type="xs:decimal" nillable="false"/>
+                                        <xs:element name="Codigo" type="xs:string" nillable="false"/>
+                                        <xs:element name="Contenido" type="xs:string" nillable="false"/>
+                                        <xs:element name="Glosa" type="xs:string" nillable="false"/>
+                                    </xs:sequence>
+                                </xs:complexType>
+                            </xs:element>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

@@ -1,0 +1,185 @@
+
+/*	Definiciones Generales  */
+body {  
+margin-left: 0px; 
+margin-right: 0px;
+font-family: Arial, Helvetica, sans-serif;
+background-image: url(../images/fondo.gif);
+background-repeat: no-repeat;
+}
+
+a:link, a:visited, a:active {
+color: #7777AA;
+text-decoration: underline;
+}
+a:hover {
+	color: #FF0000;
+	text-decoration: none;
+}
+.botones {
+	font-size: 11px;
+	padding: 1px;
+	font-weight: bold;
+	font-variant: small-caps;
+	color: #003E7E;
+}
+
+/*	Título y Subtítulo   */
+
+.titulo {
+	background-color: #FEBC75;
+	font-size: 16px;
+	color: #003E7E;
+	font-weight: bolder;
+	text-align: center;
+	width: 100%;
+	margin: 5px 0px 5px 0px;
+	padding: 1px;
+}
+
+.subtitulo {
+	font-size: 14px;
+	color: #003E7E;
+	font-weight: bold;
+	text-align: center;
+	margin-bottom: 5px;
+	width: 100%;
+}
+
+
+/*	Indicador Pie   */
+.indicadorespie {
+	font-size: 11px;
+	font-weight: bold;
+	border: 1px solid #000000;
+	text-align: center;
+}
+
+
+/*	Formularios   */
+.formulario {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: left;
+	border: 1 solid #003E7E;
+	background-color: #FFFFFF;
+
+}
+.formColor1 {
+	background-color: #FFDAB3;
+}
+.formColor2 {
+	background-color: #FFE3C5;
+}
+
+
+
+
+
+/*	Grillas   */
+.grilla {
+	font-size: 11px;
+	text-align: center;
+	border: 1 solid #003E7E;
+	margin: 5px 0px 0px;
+}
+.grillaIdentificador {
+		font-size: 11px;
+		font-weight: bold;
+		text-align: center;
+		background-color: #FFDAB3;
+}
+.grillaColor1 {
+	background-color: #FFDAB3;
+}
+.grillaColor2 {
+	background-color: #FFE3C5;
+}
+.grillacompleja {
+	font-size: 11px;
+	font-weight: normal;
+	border: 1 solid #003E7E;
+}
+.grillacomplegacol1 {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: right;
+	background-color: #FFDAB3;
+	width: 20%;
+}
+.grillacomplegacol2 {
+	font-size: 11px;
+	font-weight: normal;
+	text-align: left;
+	background-color: #FFE3C5;
+	width: 20%;
+}
+
+
+
+/*	Etiqueta de Información   */
+.identificadorFG {
+	font-size: 10px;
+	color: #FFFFFF;
+	background-color: #003E7E;
+	text-align: right;
+
+
+
+
+/*	Encabezado Resultado   */
+}
+.resultadoCelda{
+	font-size: 11px;
+	border-top-width: 0px;
+	border-right-width: 0px;
+	border-bottom-width: 1px;
+	border-left-width: 1px;
+	border-bottom-style: solid;
+	border-left-style: solid;
+	border-left-color: #003E7E;
+	border-bottom-color: #003E7E;
+	padding: 2px;
+	text-align: justify;
+}
+
+.resultadoTabla {
+	font-size: 11px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+}
+
+
+/*	Paginación   */
+.paginacion-tabla {
+	background-color: #FFE3C5;
+	border: 1px solid #003E7E;
+	margin: 0px;
+	padding: 0px;
+}
+
+.paginacion-textos {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+}
+
+
+
+/*	Menajes de Error   */
+.error-texto {			
+font-size: 11px;		
+font-weight: bold;		
+color: #FF0000;			
+background-color: #CCCCCC;	
+}
+
+.error-fondo {			
+background-color: #CCCCCC;
+}
+.error-celda {			
+   font-size: 11px;		
+   font-weight: bold;
+   color: #FF0000;			
+   background-color: #CCCCCC;	
+}
