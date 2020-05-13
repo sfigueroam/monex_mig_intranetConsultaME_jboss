@@ -1210,7 +1210,7 @@ public class Controller extends PageFlowController
 //            logger.info("URL_WS=" + Constantes.URL_WS);            
             
 			WSRentaMasivaME service = new WSRentaMasivaMELocator();				
-			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL("http://dptest.tesoreria.cl:9120/RentaMasivaWS/WSRentaMasivaME.jws"));
+			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL("http://localhost:8080/RentaMasivaWS/WSRentaMasivaME.jws"));
 //			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL(Constantes.URL_WS));			
         	msgOut = port.receiverXML(msg);            
         }        

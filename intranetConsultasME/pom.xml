@@ -7,75 +7,42 @@
 	<version>1.0.0</version>
 	<packaging>ear</packaging>
 
-	<repositories>
-		<repository>
-			<id>maven-group</id>
-			<url>http://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-releases</url>
-		</repository>
-	</repositories>
-  
-  	<distributionManagement>
-		<snapshotRepository>
-			<id>nexus-snapshots</id>
-			<url>hhttp://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-snapshots</url>
-		</snapshotRepository>
-		<repository>
-			<id>nexus-releases</id>
-			<url>http://ec2-3-229-82-198.compute-1.amazonaws.com:8081/artifactory/tesoreria-releases</url>
-		</repository>
-	</distributionManagement>
-
-
 	<build>
 		<finalName>intranetConsultasME</finalName>
-		<plugins>
-			<plugin>
-				<artifactId>maven-ear-plugin</artifactId>
-				<version>3.0.1</version>
-				<configuration>
-					<earSourceDirectory>EarContent</earSourceDirectory>
-					<version>6</version>
-					<defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
-					<modules>
-						<webModule>
-							<groupId>cl.gob.tgr.monex</groupId>
-							<artifactId>ConsultasME</artifactId>
-							<bundleFileName>ConsultasME.war</bundleFileName>
-						</webModule>
-						<ejbModule>
-							<groupId>cl.gob.tgr.monex</groupId>
-							<artifactId>PkgConsultasMonExEJB</artifactId>
-							<bundleFileName>PkgConsultasMonExEJB.jar</bundleFileName>
-						</ejbModule>
-						<ejbModule>
-							<groupId>cl.gob.tgr.monex</groupId>
-							<artifactId>PkgCMonExEJB</artifactId>
-							<bundleFileName>PkgCMonExEJB.jar</bundleFileName>
-						</ejbModule>
-					</modules>
-				</configuration>
-			</plugin>
-		</plugins>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-ear-plugin</artifactId>
+					<version>3.0.1</version>
+					<configuration>
+						<earSourceDirectory>EarContent</earSourceDirectory>
+						<version>6</version>
+						<defaultLibBundleDir>APP-INF/lib</defaultLibBundleDir>
+						<modules>
+							<webModule>
+								<groupId>intranetconsultasme.webapplication</groupId>
+								<artifactId>ConsultasME</artifactId>
+								<bundleFileName>ConsultasME.war</bundleFileName>
+							</webModule>
+							<ejbModule>
+								<groupId>cl.tesoreria.monex.pkgconsultasmonex</groupId>
+								<artifactId>PkgConsultasMonExEJB</artifactId>
+								<bundleFileName>PkgConsultasMonExEJB.jar</bundleFileName>
+							</ejbModule>
+							<ejbModule>
+								<groupId>cl.tesoreria.monex</groupId>
+								<artifactId>PkgCMonExEJB</artifactId>
+								<bundleFileName>PkgCMonExEJB.jar</bundleFileName>
+							</ejbModule>					
+						</modules>
+							<displayName>intranetConsultasME</displayName>
+							<generateApplicationXml>true</generateApplicationXml>
+						</configuration>
+					</plugin>
+				</plugins>
+		</pluginManagement>
 	</build>
 	<dependencies>
-		<dependency>
-			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>ConsultasME</artifactId>
-			<version>1.0.0</version>
-			<type>war</type>
-		</dependency>
-		<dependency>
-			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>PkgConsultasMonExEJB</artifactId>
-			<version>1.0.0</version>
-			<type>ejb</type>
-		</dependency>
-		<dependency>
-			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>PkgCMonExEJB</artifactId>
-			<version>1.0.0</version>
-			<type>ejb</type>
-		</dependency>
 		<dependency>
 			<groupId>cl.gob.tgr.monex</groupId>
 			<artifactId>PkgCajaServicesEJBClient</artifactId>
@@ -105,6 +72,25 @@
 			<groupId>cl.gob.tgr.monex</groupId>
 			<artifactId>wsdl4j</artifactId>
 			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cl.tesoreria.monex</groupId>
+			<artifactId>PkgCMonExEJB</artifactId>
+			<version>1.0.0</version>
+			<type>ejb</type>
+		</dependency>
+
+		<dependency>
+			<groupId>cl.tesoreria.monex.pkgconsultasmonex</groupId>
+			<artifactId>PkgConsultasMonExEJB</artifactId>
+			<version>1.0.0</version>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>intranetconsultasme.webapplication</groupId>
+			<artifactId>ConsultasME</artifactId>
+			<version>1.0.0</version>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 </project>

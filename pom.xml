@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>cl.gob.tgr.monex</groupId>
+	<artifactId>intranetConsultasMEApp</artifactId>
+	<version>1.0.0</version>
+	<packaging>pom</packaging>
+	<name>Consulta Moneda Extranjera Web Application</name>
+	
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+	
+	<!-- INICIO : Definición de módulos de este proyecto : incluir jar y war propios a construir -->
+	
+	<modules>
+		<module>MensajeME</module>					<!-- Modulo JAR -->	
+		<module>UtilesCMonEx</module>				<!-- Modulo JAR -->
+		<module>PkgCMonExEJB</module>				<!-- Modulo JAR -->	
+		<module>PkgConsultasMonExEJB</module>		<!-- Modulo JAR, EJB-->
+		<module>ConsultasME</module>				<!-- Modulo WAR, Web Application UI -->	
+		<module>intranetConsultasME</module>		<!-- Modulo EAR, Applicacion principal -->	
+	</modules>
+	
+	<!-- FIN : Definición de módulos de este proyecto : incluir jar y war propios a construir -->	
+
+</project>
