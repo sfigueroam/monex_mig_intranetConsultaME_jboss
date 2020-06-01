@@ -51,22 +51,143 @@
 	<dependencies>
 		<dependency>
 			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>PkgCajaServicesEJBClient</artifactId>
+			<artifactId>axis</artifactId>
+			<version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>beehive-controls</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cl.gob.tgr.monex</groupId>
+			<artifactId>beehive-netui-core</artifactId>
+			<version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cl.gob.tgr.monex</groupId>
+			<artifactId>beehive-netui-tags</artifactId>
+			<version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-beanutils</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>		
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-codec-1.3</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>	
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-digester</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>	
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-discovery-0.2</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>	
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-el</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>	
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-fileupload</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-logging</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>		
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>commons-validator</artifactId>
+		    <version>1.0.0</version>
+		    <scope>provided</scope>
+		</dependency>		
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>jakarta-oro</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>		
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>jaxrpc</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>netui-tags-databinding</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>saaj</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>standard</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>cl.gob.tgr.monex</groupId>
+			<artifactId>struts</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>velocity-dep-1.4</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>		
+		<dependency>
+		    <groupId>cl.gob.tgr.monex</groupId>
+		    <artifactId>xmlbeans-3.0.0</artifactId>
+		    <version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		
+		
+		
+		
+		
+		<dependency>
+			<groupId>cl.gob.tgr.monex</groupId>
+			<artifactId>javaee-api-7.0</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
 			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>PkgCutServicesTrxEJBClient</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>pkgSeguridadIntranetEJB3Client-2.0</artifactId>
-			<version>1.0.0</version>
-		</dependency>
-		<dependency>
-			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>segIntranet81EJB3Client-2.1</artifactId>
+			<artifactId>lib-tesoreria16-2.1</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 		<dependency>
@@ -76,7 +197,12 @@
 		</dependency>
 		<dependency>
 			<groupId>cl.gob.tgr.monex</groupId>
-			<artifactId>wsdl4j</artifactId>
+			<artifactId>PkgCajaServicesEJBClient</artifactId>
+			<version>1.0.0</version>
+		</dependency>
+		<dependency>
+			<groupId>cl.gob.tgr.monex</groupId>
+			<artifactId>PkgCutServicesTrxEJBClient</artifactId>
 			<version>1.0.0</version>
 		</dependency>
 
