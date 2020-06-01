@@ -2,9 +2,15 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>cl.tesoreria.monex</groupId>
+		<artifactId>intranetConsultasMEApp</artifactId>
+		<version>2.0.0.0</version>
+	</parent>
+
 	<groupId>cl.gob.tgr.monex</groupId>
 	<artifactId>intranetConsultasME</artifactId>
-	<version>1.0.0</version>
 	<packaging>ear</packaging>
 
 	<build>
@@ -73,23 +79,35 @@
 			<artifactId>wsdl4j</artifactId>
 			<version>1.0.0</version>
 		</dependency>
-		<dependency>
-			<groupId>cl.tesoreria.monex</groupId>
-			<artifactId>PkgCMonExEJB</artifactId>
-			<version>1.0.0</version>
-			<type>ejb</type>
-		</dependency>
 
+		<dependency>
+			<groupId>cl.tesoreria.sii.msgSII</groupId>
+			<artifactId>MensajeME</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cl.tesoreria.monex.utiles</groupId>
+			<artifactId>UtilesCMonEx</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+			
 		<dependency>
 			<groupId>cl.tesoreria.monex.pkgconsultasmonex</groupId>
 			<artifactId>PkgConsultasMonExEJB</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
+			<groupId>cl.tesoreria.monex</groupId>
+			<artifactId>PkgCMonExEJB</artifactId>
+			<version>${project.version}</version>
+			<type>ejb</type>
+		</dependency>
+		
+		<dependency>
 			<groupId>intranetconsultasme.webapplication</groupId>
 			<artifactId>ConsultasME</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 			<type>war</type>
 		</dependency>
 	</dependencies>

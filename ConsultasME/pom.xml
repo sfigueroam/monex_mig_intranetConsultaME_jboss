@@ -4,15 +4,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>cl.gob.tgr.monex</groupId>
+		<groupId>cl.tesoreria.monex</groupId>
 		<artifactId>intranetConsultasMEApp</artifactId>
-		<version>1.0.0</version>
+		<version>2.0.0.0</version>
 	</parent>
 
 
 	<groupId>intranetconsultasme.webapplication</groupId>
 	<artifactId>ConsultasME</artifactId>
-	<version>1.0.0</version>
 	<packaging>war</packaging>
 
 	
@@ -114,29 +113,30 @@
 			<version>1.0.0</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>cl.tesoreria.monex.utiles</groupId>
-			<artifactId>UtilesCMonEx</artifactId>
-			<version>1.0.0</version>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>cl.tesoreria.sii.msgSII</groupId>
 			<artifactId>MensajeME</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>cl.tesoreria.monex.utiles</groupId>
+			<artifactId>UtilesCMonEx</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		
 		<dependency>
 			<groupId>cl.tesoreria.monex</groupId>
 			<artifactId>PkgCMonExEJB</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
-		</dependency>
-
+		</dependency>		
 		<dependency>
 			<groupId>cl.tesoreria.monex.pkgconsultasmonex</groupId>
 			<artifactId>PkgConsultasMonExEJB</artifactId>
-			<version>1.0.0</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

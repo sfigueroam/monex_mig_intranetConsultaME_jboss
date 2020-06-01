@@ -1195,6 +1195,8 @@ public class Controller extends PageFlowController
     
     private String invocarRentaMonexClient(String msg)
     {
+    	
+    	logger.info("\n------------------------------------------>>>>>>>>>>>invocarRentaMonexClient<<<<<<<<<<<------------------------\n");
         String msgOut="";
         logger.info("Mensaje Salida: " + msg);
         
