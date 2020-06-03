@@ -1,11 +1,8 @@
 package Ingresador;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.sql.CallableStatement;
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Types;
 import java.text.SimpleDateFormat;
 import java.util.AbstractMap;
 import java.util.ArrayList;
@@ -18,12 +15,10 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.sql.DataSource;
 import javax.sql.RowSet;
 import org.apache.beehive.netui.pageflow.Forward;
 import org.apache.beehive.netui.pageflow.PageFlowController;
@@ -33,17 +28,11 @@ import org.apache.log4j.Logger;
 
 import cl.teso.reca.cajasrv.pkgcajaservices.GetItemdescripcionResult;
 import cl.teso.reca.cajasrv.pkgcajaservices.PkgCajaServicesRemote;
-import cl.teso.reca.pkgcutservicestrx.AdfValidaCaller;
-import cl.teso.reca.pkgcutservicestrx.AdfValidaResult;
-import cl.teso.reca.pkgcutservicestrx.PkgCutServicesTrxException;
 import cl.teso.reca.pkgcutservicestrx.PkgCutServicesTrxRemote;
 import cl.teso.reca.pkgcutservicestrx.classes.Messages.ContextADF;
-import cl.teso.reca.pkgcutservicestrx.classes.Messages.ItemsADF;
-import cl.teso.reca.pkgcutservicestrx.classes.Messages.PagoDeudaPortalResult;
 import cl.teso.reca.pkgcutservicestrx.classes.Messages.RecaItems;
 import cl.teso.reca.pkgcutservicestrx.classes.Messages.RecaMensajes;
 import cl.teso.reca.pkgcutservicestrx.classes.Messages.ValidaADFResult;
-import cl.teso.reca.pkgcutservicestrx.classes.Util.TypesUtil;
 import cl.tesoreria.me.locator.PkgCMonExLocator;
 import cl.tesoreria.me.ws.client.WSRentaMasivaME;
 import cl.tesoreria.me.ws.client.WSRentaMasivaMELocator;
@@ -206,15 +195,8 @@ public class Controller extends PageFlowController
                     verForm = form_code.substring(form_code.length() - 1, form_code.length());
                     
                     BigDecimal itmCod = form.getCodigo();                    
-                    
-                    
-//                    PkgCajaServicesRemote ejbCajaServices = this.locatorPkgCajaServices();                                                           
-//                    GetItemdescripcionResult res = ejbCajaServices.getItemdescripcion(new BigDecimal(IDForm), verForm, itmCod);
-                    
-                    GetItemdescripcionResult res = this.locatorPkgCajaServices(new BigDecimal(IDForm), verForm, itmCod);
-                    
-                    System.out.println("res: " + res);
-                    
+                    PkgCajaServicesRemote ejbCajaServices = this.locatorPkgCajaServices();                                                           
+                    GetItemdescripcionResult res = ejbCajaServices.getItemdescripcion(new BigDecimal(IDForm), verForm, itmCod);
                     
                     String itmDesc = res.getOutItemdescripcion();
                     String itemtype = res.getOutItemtype().trim();
@@ -758,17 +740,11 @@ public class Controller extends PageFlowController
         
         try 
         {
-        	
-        	System.out.println("VALIDA SIIIII 2!!!!!!!!!!!!!!!");
-        	
-//        	PkgCutServicesTrxRemote cutServices = this.locatorPkgCutServices();        
+        	PkgCutServicesTrxRemote cutServices = this.locatorPkgCutServices();        
         	logger.info("Conectado a PkgCutServicesTrxRemote...");
         	
             // Se ejecuta EJB procesar 
-//            ValidaADFResult result= cutServices.validaADF("TGR", contextADF, recaItems);
-        	
-        	ValidaADFResult result= validaADF("TGR", contextADF, recaItems);
-            
+            ValidaADFResult result= cutServices.validaADF("TGR", contextADF, recaItems);
             logger.info("ValidaADF OK");
             
             int resultado = result.getResultCode().intValue();
@@ -995,21 +971,12 @@ public class Controller extends PageFlowController
                 
                 String signo = " ";
                 String contenido = this.quitarCaracExt(tp.getValor().trim());
-                BigDecimal valor = new BigDecimal(0);
+                
                 if (tp.getSigno() != null)
                 {
                     try 
                     {
-                    	System.out.println("tp.getValor(): "+tp.getValor());
-                    	if (tp.getSigno() == "R")
-                        {
-                            contenido = this.rutToNumber(contenido);
-                             valor = new BigDecimal(contenido);
-                        } 
-                    	else
-                    	{
-                    		 valor = new BigDecimal(tp.getValor().trim());
-                    	}
+                        BigDecimal valor = new BigDecimal(tp.getValor().trim());
                         if (valor.signum() == 1 || valor.signum() == 0) 
                         { 
                             signo = "+"; 
@@ -1195,8 +1162,6 @@ public class Controller extends PageFlowController
     
     private String invocarRentaMonexClient(String msg)
     {
-    	
-    	logger.info("\n------------------------------------------>>>>>>>>>>>invocarRentaMonexClient<<<<<<<<<<<------------------------\n");
         String msgOut="";
         logger.info("Mensaje Salida: " + msg);
         
@@ -1208,12 +1173,11 @@ public class Controller extends PageFlowController
             WSRentaMasivaMESoap msoap = impl.getWSRentaMasivaMESoap();
             msgOut = msoap.receiverXML(msg);
             */
-//        	Constantes.cargarArchivoME();
-//            logger.info("URL_WS=" + Constantes.URL_WS);            
+        	Constantes.cargarArchivoME();
+            logger.info("URL_WS=" + Constantes.URL_WS);            
             
 			WSRentaMasivaME service = new WSRentaMasivaMELocator();				
-			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL("http://localhost:8080/RentaMasivaWS/WSRentaMasivaME.jws"));
-//			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL(Constantes.URL_WS));			
+			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL(Constantes.URL_WS));			
         	msgOut = port.receiverXML(msg);            
         }        
         catch(Exception ex)
@@ -2272,350 +2236,22 @@ public class Controller extends PageFlowController
 //                                
 //    }   
     
-//    private PkgCutServicesTrxRemote locatorPkgCutServices() throws Exception {
-//    	
-//    	Context context = new InitialContext();
-//        pkgCutServicesTrxRemote = (PkgCutServicesTrxRemote) context.lookup("java:global/PortalSrvEJB3/PkgCutServicesTrxEJB/PkgCutServicesTrx!cl.teso.reca.pkgcutservicestrx.PkgCutServicesTrxRemote");
-//        
-//        return pkgCutServicesTrxRemote;
-//                                
-//    } 
-    
-    private GetItemdescripcionResult locatorPkgCajaServices(BigDecimal inFormtipo, String inFormversion, BigDecimal inItmCode) throws Exception {
-    	    	
-//    	Properties props = new Properties();
-//    	InitialContext ctx = new InitialContext(props);
-//    	PkgCajaServicesRemote = (PkgCajaServicesRemote) ctx.lookup("java:global/CajaSrvEAR/PkgCajaServicesEJB/PkgCajaServices!cl.teso.reca.cajasrv.pkgcajaservices.PkgCajaServicesRemote");    	
-
-    	GetItemdescripcionResult result = new GetItemdescripcionResult();
-		Connection conn = null;
-		CallableStatement call = null;
-		ArrayList resultSets = new ArrayList();
-            try
-            {
-            	
-            	Context ctx = new InitialContext();
-        		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
-        		conn = dataSource.getConnection();
-        		
-            	
-                
-                call = conn.prepareCall("{call RECA.PKG_CAJA_SERVICES.GET_ITEMDESCRIPCION(?,?,?,?,?,?,?,?,?,?)}");
-                    
-                    
-                call.setBigDecimal(1, inFormtipo);
-                call.setString(2, inFormversion);
-                call.setBigDecimal(3, inItmCode);
-                call.registerOutParameter(4, Types.VARCHAR);
-                call.registerOutParameter(5, Types.VARCHAR);
-                call.registerOutParameter(6, Types.VARCHAR);
-                call.registerOutParameter(7, Types.VARCHAR);
-                call.registerOutParameter(8, Types.VARCHAR);
-                call.registerOutParameter(9, Types.VARCHAR);
-                call.registerOutParameter(10, Types.NUMERIC);
-                int updateCount = 0;
-                boolean haveRset = call.execute();
-                while (haveRset || updateCount != -1)
-                {
-                    if (!haveRset)
-                        updateCount = call.getUpdateCount();
-                    else
-                        resultSets.add(call.getResultSet());
-                    haveRset = call.getMoreResults();
-                }
-                
-                System.out.println("call.getString(4): "+call.getString(4));
-                System.out.println("call.getString(5): "+call.getString(5));
-                System.out.println("call.getString(6): "+call.getString(6));
-                result.setOutItemdescripcion(call.getString(4));
-                result.setOutItemdescripcionLarga(call.getString(5));
-                result.setOutItemtype(call.getString(6));
-                result.setOutItemusage(call.getString(7));
-                result.setOutItemprint(call.getString(8));
-                result.setOutItemrep(call.getString(9));
-                result.setOutResultado(call.getBigDecimal(10));
-                
-            }
-            finally
-            {
-            	conn.close();
-                call.close();
-            }
-//            if (resultSets.size() > 0)
-//            {
-//                RowSet[] rowSets = new RowSet[resultSets.size()];
-//                result.getRowSet(index) 
-//                result.set
-//                result.setRowSets((RowSet[]) resultSets.toArray(rowSets));
-//            }
-            return result;
-        
+    private PkgCutServicesTrxRemote locatorPkgCutServices() throws Exception {
     	
+    	Context context = new InitialContext();
+        pkgCutServicesTrxRemote = (PkgCutServicesTrxRemote) context.lookup("cl.teso.reca.pkgcutservicestrx.PkgCutServicesTrx#cl.teso.reca.pkgcutservicestrx.PkgCutServicesTrxRemote");
+        
+        return pkgCutServicesTrxRemote;
+                                
+    } 
+    
+    private PkgCajaServicesRemote locatorPkgCajaServices() throws Exception {
+    	    	
+    	Context context = new InitialContext();
+    	PkgCajaServicesRemote = (PkgCajaServicesRemote) context.lookup("cl.teso.reca.cajasrv.pkgcajaservices#cl.teso.reca.cajasrv.pkgcajaservices.PkgCajaServicesRemote");    	
+        
+        return PkgCajaServicesRemote;        
+                         
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	public static final char LS = TypesUtil.LS;
-	public static final char CS = TypesUtil.CS;
-	public static final char RS = TypesUtil.RS;
-    
-	private static BigDecimal BigDecimal$1 = new BigDecimal(1);
-    
-    private static final String errorParametrosMsg = "No se procesa Transaccion. Campo Obligatorio Nulo: ";
-    
-	public ValidaADFResult validaADF(String usuario, ContextADF contextADF,
-			RecaItems[] items) throws PkgCutServicesTrxException {
-		ValidaADFResult validaADFResult = new ValidaADFResult();
-
-		// -----------Inicializacion y Validacion Variables Entrada------------
-		if (items == null || contextADF == null
-				|| contextADF.getFormCod() == null
-				|| contextADF.getFormVer() == null) {
-			String campoNulo = null;
-
-			if (contextADF == null) {
-				campoNulo = "contextADF";
-			} else {
-				if (contextADF.getFormCod() == null) {
-					campoNulo = "contextADF.getFormCod()";
-				} else if (contextADF.getFormVer() == null) {
-					campoNulo = "contextADF.getFormVer()";
-				} else if (contextADF.getFechaCaja() == null) {
-					campoNulo = "contextADF.getFechaCaja()";
-				}
-			}
-			if (items == null) {
-				campoNulo = "items";
-			}
-			validaADFResult.setResultCode(PagoDeudaPortalResult.TRX_ERROR);
-			validaADFResult.setResultMessage(errorParametrosMsg + campoNulo);
-			return validaADFResult;
-		}
-		// --------------------------------------------------------
-
-		try {
-			String contextAdfIn = "";
-			String touplesAdfIn;
-			String traceLevelAdf = "3";
-			String flagDigitacionAdf = "1";
-
-			// Formamos la tuplas del formulario
-			touplesAdfIn = RecaItems.PackTouplesReca(items);
-			// Formamos el contexto del ADF
-			contextAdfIn = TypesUtil.addCharCS("fecha_caja")
-					+ TypesUtil.addCharLS(Integer.toString(TypesUtil
-							.calendarToInt(contextADF.getFechaCaja())));
-			contextAdfIn = contextAdfIn + TypesUtil.addCharCS("form_cod")
-					+ TypesUtil.addCharLS(contextADF.getFormCod().toString());
-			contextAdfIn = contextAdfIn + TypesUtil.addCharCS("form_ver")
-					+ TypesUtil.addCharLS(contextADF.getFormVer());
-			contextAdfIn = contextAdfIn
-					+ TypesUtil.addCharCS("form_vig")
-					+ TypesUtil.addCharLS(Integer.toString(TypesUtil
-							.calendarToInt(contextADF.getFechaCaja())));
-			if (contextADF.getTraceLvl() != null)
-				contextAdfIn = contextAdfIn
-						+ TypesUtil.addCharCS("trace_lvl")
-						+ TypesUtil.addCharLS(contextADF.getTraceLvl()
-								.toString());
-			else
-				contextAdfIn = contextAdfIn + TypesUtil.addCharCS("trace_lvl")
-						+ TypesUtil.addCharLS(traceLevelAdf);
-
-			if (contextADF.getFlagDigitacion() != null)
-				contextAdfIn = contextAdfIn
-						+ TypesUtil.addCharCS("flag_digitacion")
-						+ TypesUtil.addCharLS(contextADF.getFlagDigitacion()
-								.toString());
-			else
-				contextAdfIn = contextAdfIn
-						+ TypesUtil.addCharCS("flag_digitacion")
-						+ TypesUtil.addCharLS(flagDigitacionAdf);
-
-			TypesUtil.addCharRS(contextAdfIn);
-
-			AdfValidaResult adfValidaResult = adfValida(touplesAdfIn,
-					contextAdfIn);
-			ContextADF contextADFOut = new ContextADF();
-			RecaMensajes[] messagesADF = null;
-			String contextTgfOut = adfValidaResult.getContexttgfout();
-			String messagesTgfOut = adfValidaResult.getMessagestgf();
-			String itemsCutOut = adfValidaResult.getItemsOut();
-			String splitPattern1 = LS + "|" + RS;
-			// String[] contexto = contextTgfOut.split(splitPattern1);
-			// String[] liquida = null;
-
-			// Extraemos el contexto del ADF
-			contextADFOut = ContextADF.SplitContextADF(contextTgfOut);
-			// Extraemos los mensajes del ADF
-			if (messagesTgfOut != null) {
-				String[] errorArrTmp = messagesTgfOut.split(splitPattern1);
-				int nroMessagesADF = errorArrTmp.length;
-
-				if (nroMessagesADF > 0) {
-					messagesADF = new RecaMensajes[nroMessagesADF];
-
-					RecaMensajes mensaje;
-
-					for (int j = 0; j < errorArrTmp.length; j++) {
-						mensaje = new RecaMensajes();
-
-						String[] msgTmp = errorArrTmp[j].split(String
-								.valueOf(CS));
-
-						mensaje.setTipo(BigDecimal$1); // FALTA
-						mensaje.setCodigo(TypesUtil.parseBigDecimal(msgTmp[2])); // /FALTA
-						mensaje.setSeveridad(TypesUtil
-								.parseBigDecimal(msgTmp[1]));
-						mensaje.setGlosa("SACAR DE TABLA"); // FALTA
-						mensaje.setErrCode(TypesUtil.parseBigDecimal(msgTmp[2]));
-						mensaje.setErrTgr(TypesUtil.parseBigDecimal(msgTmp[2]));
-						if (msgTmp.length >= 6)
-							mensaje.setErrMsg(msgTmp[5]);
-						if (msgTmp.length >= 4)
-							mensaje.setObjName(msgTmp[3]);
-						if (msgTmp.length >= 5)
-							mensaje.setObjValue(msgTmp[4]);
-						if (msgTmp.length >= 7)
-							mensaje.setObjDescrip(msgTmp[6]);
-						messagesADF[j] = mensaje;
-					}
-				}
-
-				validaADFResult.setResultCode(adfValidaResult.getResultado());
-				validaADFResult.setContextADF(contextADFOut);
-				validaADFResult.setRecaMensajes(messagesADF);
-				validaADFResult
-						.setItemsADF(ItemsADF.SplitItemsCut(itemsCutOut));
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			logger.error("Error validaADF", e);
-			validaADFResult.setResultCode(ValidaADFResult.SEVERITY_FATAL);
-			validaADFResult.setResultMessage(formatException(e,
-					"Excepcion en validaADF:", true, 0));
-		}
-		return validaADFResult;
-	}
-    
-    
-    
-    
-    
-	AdfValidaResult adfValida(String touplestgf, String contexttgfin)
-			throws PkgCutServicesTrxException {
-		
-		Connection conn = null;
-		AdfValidaResult result = new AdfValidaResult();
-		try {
-			
-			
-        	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
-    		conn = dataSource.getConnection();
-			
-//	        AdfValidaResult result = new AdfValidaResult();
-	        ArrayList resultSets = new ArrayList();
-	        CallableStatement call = conn.prepareCall("{call RECA.PKG_CUT_SERVICES_TRX.ADF_VALIDA(?,?,?,?,?,?)}");
-	        try {
-	            call.setString(1, touplestgf);
-	            call.setString(2, contexttgfin);
-	            call.registerOutParameter(3, Types.VARCHAR);
-	            call.registerOutParameter(4, Types.VARCHAR);
-	            call.registerOutParameter(5, Types.VARCHAR);
-	            call.registerOutParameter(6, Types.NUMERIC);
-	            int updateCount = 0;
-	            boolean haveRset = call.execute();
-	            while (haveRset || updateCount != -1) {
-	                if (!haveRset)
-	                    updateCount = call.getUpdateCount();
-	                else
-	                    resultSets.add(call.getResultSet());
-	                haveRset = call.getMoreResults();
-	            }
-	            result.setItemsOut(call.getString(3));
-	            result.setContexttgfout(call.getString(4));
-	            result.setMessagestgf(call.getString(5));
-	            result.setResultado(call.getBigDecimal(6));
-	        } finally {
-	        	conn.close();
-	            call.close();
-	        }
-	        if (resultSets.size() > 0) {
-	            RowSet[] rowSets = new RowSet[resultSets.size()];
-//	            result.setRowSets((RowSet[]) resultSets.toArray(rowSets));
-	        }
-			
-			
-//			return AdfValidaCaller
-//					.execute(dataSource, touplestgf, contexttgfin);
-		} catch (Exception ex) {
-			throw new PkgCutServicesTrxException(ex);
-		}
-		
-		return result;
-	}
-	
-	
-	
-	private String formatException(Exception e, String method,
-			boolean printStackTrace, long stackTraceLevel) {
-		// Valores por defecto
-		printStackTrace = true;
-		stackTraceLevel = 2;
-
-		int messageMaxLength = 500;
-		String exceptionMessage;
-		// --------------------
-
-		String message = null;
-
-		try {
-			exceptionMessage = e.toString();
-			if (exceptionMessage.length() > messageMaxLength) {
-				exceptionMessage = exceptionMessage.substring(0,
-						messageMaxLength);
-			}
-			message = (method + " " + exceptionMessage);
-			if (stackTraceLevel > 0) {
-				StackTraceElement[] stk = e.getStackTrace();
-				String stkElement;
-				int stkIdx = 0;
-
-				for (int j = 0; j < stk.length; j++) {
-					String thisClassName = "cl.teso.reca.pkgcutservicestrx"; // MEJORAR
-
-					if (stk[j].getClassName().startsWith(thisClassName)) {
-						stkElement = ". at " + stk[j].getMethodName() + "("
-								+ stk[j].getFileName() + ":"
-								+ stk[j].getLineNumber() + ")";
-						message = message + stkElement;
-						stkIdx = stkIdx + 1;
-					}
-					if (stkIdx >= stackTraceLevel) {
-						break;
-					}
-				}
-			}
-			if (printStackTrace) {
-				e.printStackTrace();
-			}
-		} catch (Exception f) {
-			f.printStackTrace();
-			logger.error("Error formatException", f);
-			message = "Method: " + method + ". Exception: " + e;
-		}
-		return message;
-	}
-	
-    
     	
 }

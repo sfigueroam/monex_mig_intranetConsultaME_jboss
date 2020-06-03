@@ -112,16 +112,6 @@ public class Controller extends PageFlowController
     })
     protected Forward goCuentas(GoCuentasForm form)
     {
-    	System.out.println("form: "+form);
-    	if (form.getRut() == null) {
-    		System.out.println("pasando por sesion 1");
-    		form = (GoCuentasForm) getSession().getAttribute("formSessionCuentas");
-    	}else {
-    		System.out.println("pasando por sesion 2");
-    		getSession().setAttribute("formSessionCuentas", form);
-    	}
-    	System.out.println("pasando por sesion 3");
-        
         // Declaración de variables
         String rut = form.getRut();
         String dv = form.getDv();
@@ -209,16 +199,6 @@ public class Controller extends PageFlowController
     })
     protected Forward goMovimiento(GoMovimientoForm form)
     {
-    	
-    	System.out.println("form.getItem(): "+form.getItem());
-    	if (form.getItem() == null) {
-    		System.out.println("GoMovimientoForm pasando por sesion 1");
-    		form = (GoMovimientoForm) getSession().getAttribute("GoMovimientoFormSession");
-    	}else {
-    		System.out.println("GoMovimientoForm pasando por sesion 2");
-    		getSession().setAttribute("GoMovimientoFormSession", form);
-    	}
-    	
         //ArrayList consulta = new ArrayList();
         ArrayList lista = new ArrayList();
         String idConsulta = null;
@@ -344,8 +324,7 @@ public class Controller extends PageFlowController
                                e.getMessage());
             this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");              
         }         
-
-        getSession().setAttribute("whereBack","goMovimiento");
+        
         this.getRequest().setAttribute("lista", lista);
         return new Forward("success");
     }
@@ -484,8 +463,9 @@ public class Controller extends PageFlowController
                                form +
                                " --> " +
                                e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");            
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");            
         }         
+        
         return new Forward("success");
     }
 
@@ -551,7 +531,7 @@ public class Controller extends PageFlowController
                                form +
                                " --> " +
                                e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");                      
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");                      
         }            
         
         
@@ -732,23 +712,6 @@ public class Controller extends PageFlowController
      * @jpf:forward name="success" path="autoResult.jsp"
      */
     @Jpf.Action(forwards = { 
-        @Jpf.Forward(name = "success",
-                     path = "cuentas.jsp")
-    })
-    protected Forward backDetalles()
-    {
-        return new Forward("success");
-    }
-    
-    
-    
-    
-    /**
-     * @jpf:action
-     * @jpf:forward name="error" path="autorizados.jsp"
-     * @jpf:forward name="success" path="autoResult.jsp"
-     */
-    @Jpf.Action(forwards = { 
         @Jpf.Forward(name = "error",
                      path = "autorizados.jsp"), 
         @Jpf.Forward(name = "success",
@@ -790,7 +753,7 @@ public class Controller extends PageFlowController
                                form +
                                " --> " +
                                e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");                     
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");                     
         }          
         
         
@@ -813,48 +776,11 @@ public class Controller extends PageFlowController
     })
     protected Forward goRectificados(rectificadosForm form)
     {
-    	
-    	System.out.println("1");
-    	if (form.getRut() == null) {
-    		System.out.println("2");
-    		form = (rectificadosForm) getSession().getAttribute("rectificadosFormSession");
-    		
-    		 if (form.getFlagRectificaParticular() != null) {
-    			 System.out.println("3");
-    			 form.setItem("0");    			 
-    		 }
-    		 
-    		 if (getRequest().getParameter("flagRectificarResult")!= null) {
-    			 System.out.println("3.1");
-    			 form.setItem("0");    			 
-    		 }    
-    		 
-    		 if (form.getRutTmp()!=null)
-    			 if (form.getRutTmp().equals(""))
-    				 form.setRut("");
-    		 
-    	}else {
-    		
-    		System.out.println("form.getRut(): "+form.getRut());
-    		
-    		if (form.getRut().equals("0")) {
-    			form.setRutTmp("");
-    		}
-    		
-    		form.setFlagRectificaParticular(getRequest().getParameter("flagRectificaParticular"));
-    		getSession().setAttribute("rectificadosFormSession", form);
-    	}
-    	
-    	
-    	
         String fechaDesde = form.getAnoDesde() + form.getMesDesde() + form.getDiaDesde();
         String fechaHasta = form.getAnoHasta() + form.getMesHasta() + form.getDiaHasta();
         String rut = form.getRut();
         String dv = form.getDv();
         String idMov = form.getItem();
-        
-        System.out.println("idMov: "+idMov);
-        
         
         this.getRequest().setAttribute("DV", dv);
         this.getRequest().setAttribute("RUT", rut);
@@ -892,12 +818,6 @@ public class Controller extends PageFlowController
         
         try 
         {
-//        	new BigDecimal(fechaDesde), new BigDecimal(fechaHasta), new BigDecimal(rut), new BigDecimal(idMov)
-        	
-        	System.out.println("fechaDesde: "+fechaDesde);
-        	System.out.println("fechaHasta: "+fechaHasta);
-        	System.out.println("rut: "+rut);
-        	System.out.println("idMov: "+idMov);
             RectificadosResult result = locator2.getPkgConsultasMonExRemote().rectificados(new BigDecimal(fechaDesde), new BigDecimal(fechaHasta), new BigDecimal(rut), new BigDecimal(idMov));
             RowSet rs = result.getRowSet(0);
             if (rs.first())
@@ -914,19 +834,16 @@ public class Controller extends PageFlowController
         {
             System.out.println("Error [goRectificados] --> " +
                                e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");                     
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");                     
             return new Forward("error");
         }
 
-        getSession().setAttribute("whereBack","goRectificados");
         if (idMov.equals("0"))
         {
-        	System.out.println("6");
             return new Forward("success");
         }
         else
         {
-        	System.out.println("7");
             return new Forward("success1");
         }
     }
@@ -1033,12 +950,12 @@ public class Controller extends PageFlowController
             
             String[] titulos = {"SIGNO",
                                 "FORM",
-                                "AÑO TRIBUTARIO",
+                                "A�O TRIBUTARIO",
                                 "RUT",
                                 "FOLIO",
                                 "VCTO",
                                 "FECHA ENVIO (9927)",
-                                "FECHA RECEPCIÓN",
+                                "FECHA RECEPCI�N",
                                 "9901",
                                 "9902",
                                 "MONEDA",
@@ -1053,7 +970,7 @@ public class Controller extends PageFlowController
         } catch (Exception e) 
         {
             System.out.println("Error [goExpRect] --> " + e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");                     
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");                     
             return new Forward("error");
         }        
                 
@@ -1174,7 +1091,7 @@ public class Controller extends PageFlowController
             
             String[] titulos = {"SIGNO",
                                 "FORM",
-                                "AÑO TRIBUTARIO",
+                                "A�O TRIBUTARIO",
                                 "RUT",
                                 "FOLIO",
                                 "VCTO",
@@ -1193,7 +1110,7 @@ public class Controller extends PageFlowController
         } catch (Exception e) 
         {
             System.out.println("Error [goExpRect2] --> " + e.getMessage());
-            this.getRequest().setAttribute("msje","Problemas de conexión, por favor vuelva a intentarlo.");                     
+            this.getRequest().setAttribute("msje","Problemas de conexi�n, por favor vuelva a intentarlo.");                     
             return new Forward("error");
         }        
                 
@@ -1648,13 +1565,6 @@ public class Controller extends PageFlowController
      */
     public static class rectificadosForm extends BaseActionForm
     {
-    	
-    	private String rutTmp;
-    	
-    	private String flagRectificaParticular;
-    	
-    	private String flagRectificarResult;
-    	
         private String numtrx;
 
         private String item;
@@ -1676,33 +1586,8 @@ public class Controller extends PageFlowController
         private String dv;
 
         private String rut;
-        
 
-		public String getRutTmp() {
-			return rutTmp;
-		}
-
-		public void setRutTmp(String rutTmp) {
-			this.rutTmp = rutTmp;
-		}
-
-		public String getFlagRectificarResult() {
-			return flagRectificarResult;
-		}
-
-		public void setFlagRectificarResult(String flagRectificarResult) {
-			this.flagRectificarResult = flagRectificarResult;
-		}
-
-		public String getFlagRectificaParticular() {
-			return flagRectificaParticular;
-		}
-
-		public void setFlagRectificaParticular(String flagRectificaParticular) {
-			this.flagRectificaParticular = flagRectificaParticular;
-		}
-
-		public void setRut(String rut)
+        public void setRut(String rut)
         {
             this.rut = rut;
         }
