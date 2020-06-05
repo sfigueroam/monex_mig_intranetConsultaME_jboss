@@ -10,7 +10,8 @@ import cl.tesoreria.monex.pkgconsultasmonex.PkgConsultasMonExRemote;
 
 public class PkgConsultasMonExLocator 
 { 
-	private PkgConsultasMonExRemote pkgConsultasMonExRemote;
+    private PkgConsultasMonExRemote pkgConsultasMonExRemote;
+    private static Logger logger = Logger.getLogger("cl.tesoreria.me.locator.PkgConsultasMonExLocator");
 	
     public PkgConsultasMonExRemote getPkgConsultasMonExRemote() throws NamingException,Exception
     {

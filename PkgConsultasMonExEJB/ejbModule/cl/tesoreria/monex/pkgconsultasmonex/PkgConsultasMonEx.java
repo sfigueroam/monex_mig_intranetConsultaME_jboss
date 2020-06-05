@@ -11,18 +11,32 @@ import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 import cl.tesoreria.monex.utiles.Constantes;
+import javax.naming.Context;
+import javax.naming.InitialContext;
+
 
 @Stateless(name = "PkgConsultasMonEx", mappedName = "cl.tesoreria.monex.pkgconsultasmonex.PkgConsultasMonEx")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class PkgConsultasMonEx implements PkgConsultasMonExRemote,
 		PkgConsultasMonExLocal {
 
-	Constantes.cargarArchivoME();
-	logger.info("Seguimiento ------ JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);            
-		
-	@Resource(lookup = Constantes.JNDI_DATASOURCE_SII) 
-	private DataSource dataSource;
+//	@Resource(lookup = "java:/jdbc/siiDS") 
+//	private DataSource dataSource;
+	private DataSource dataSource = cargaDataSource();
 	private static Logger logger = Logger.getLogger("cl.tesoreria.finpub.intranetConsultasME.PkgConsultasMonEx");
+	
+	private static DataSource cargaDataSource() {
+		try {
+			Context ctx = new InitialContext();
+			DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_SII);
+			logger.info("Seguimiento ------ CARGA Constantes.JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);
+			return dataSource;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			logger.error("Error en el metodo PkgCMonEx.cargaDataSource() : " + ex);
+		}
+		return null;
+	}
 	
 	@Override
 	public AutorizadosResult autorizados(BigDecimal rutIn, BigDecimal formIn)

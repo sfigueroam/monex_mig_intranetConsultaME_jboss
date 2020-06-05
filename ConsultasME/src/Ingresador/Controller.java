@@ -2520,10 +2520,10 @@ public class Controller extends PageFlowController
 		try {
 			
             Constantes.cargarArchivoME();
-            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA816);            
                         
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA816);
     		conn = dataSource.getConnection();
 			
 //	        AdfValidaResult result = new AdfValidaResult();

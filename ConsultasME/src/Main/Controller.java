@@ -49,7 +49,8 @@ public class Controller extends PageFlowController
 {
 	
 	private TreeElement _simpleTree;
-	
+    private static Logger logger = Logger.getLogger("Main.Controller");
+    
 	public TreeElement getSimpleTree() {
 		return _simpleTree;
 	}
@@ -467,10 +468,10 @@ public class Controller extends PageFlowController
             System.out.println("iUser: "+iUser);
 
             Constantes.cargarArchivoME();
-            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA816);            
 
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA816);
     		conn = dataSource.getConnection();
     		
     		System.out.println("conn: "+conn);
@@ -522,10 +523,10 @@ public class Controller extends PageFlowController
 	        	ResultSet rs = null;
                 
                 Constantes.cargarArchivoME();
-                logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+                logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA816);            
 
 	        	Context ctx = new InitialContext();
-	    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
+	    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA816);
 	    		Connection conn = dataSource.getConnection();
 	    		
 	            

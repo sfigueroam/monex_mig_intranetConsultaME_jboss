@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.annotation.Resource;
+//import javax.annotation.Resource;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
@@ -20,8 +20,8 @@ import cl.tesoreria.monex.utilesVO.GetResult;
 import cl.tesoreria.monex.utilesVO.IraCmexVO;
 import cl.tesoreria.monex.utilesVO.LLaveCmexVO;
 import cl.tesoreria.monex.utiles.Constantes;
-import cl.tesoreria.monex.utiles.XMLProcesosME;
-
+import javax.naming.Context;
+import javax.naming.InitialContext;
 
 
 @Stateless(name = "PkgCMonEx", mappedName = "cl.tesoreria.monex.controller.PkgCMonEx")
@@ -29,12 +29,9 @@ import cl.tesoreria.monex.utiles.XMLProcesosME;
 public class PkgCMonEx implements PkgCMonExRemote, PkgCMonExLocal {
 	
 	private static Logger logger = Logger.getLogger("cl.tesoreria.finpub.intranetConsultasME.PkgCMonEx");
-	Constantes.cargarArchivoME();
-	logger.info("Seguimiento ------ JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);     
 
-	@Resource(lookup = Constantes.JNDI_DATASOURCE_SII) 
-
-	private DataSource dataSource;	
+	//@Resource(lookup = Constantes.JNDI_DATASOURCE_SII) 
+	private DataSource dataSource = cargaDataSource();
 	private PkgCMonExDAO pkgCMonExDAO;
 
 	private PkgCMonExDAO getPkgCMonExDAO() {
@@ -42,6 +39,19 @@ public class PkgCMonEx implements PkgCMonExRemote, PkgCMonExLocal {
 			pkgCMonExDAO = new PkgCMonExDAO();
 		}
 		return pkgCMonExDAO;
+	}
+
+	private static DataSource cargaDataSource() {
+		try {
+			Context ctx = new InitialContext();
+			DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_SII);
+			logger.info("Seguimiento ------ CARGA Constantes.JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);
+			return dataSource;
+		} catch(Exception ex) {
+			ex.printStackTrace();
+			logger.error("Error en el metodo PkgCMonEx.cargaDataSource() : " + ex);
+		}
+		return null;
 	}
 
 	@Override

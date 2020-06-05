@@ -161,11 +161,11 @@ public class Controller extends PageFlowController
         try {
 //            RecuperaArchResult result = locator.getPkgConsultasMonExRemote().recuperaArch(new BigDecimal (0), "", new BigDecimal (id));
             Constantes.cargarArchivoME();
-            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA816);            
 
             
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA816);
     		conn = dataSource.getConnection();
             
         	 call = conn.prepareCall("{call SII.PKG_CONSULTAS_MON_EX.RECUPERA_ARCH(?,?,?,?,?)}");
