@@ -25,6 +25,7 @@ import org.apache.log4j.Logger;
 import cl.tesoreria.me.locator.PkgConsultasMonExLocator;
 import cl.tesoreria.monex.pkgconsultasmonex.RecuperaArchResult;
 import cl.tesoreria.utiles.sql.TypesExt;
+import cl.tesoreria.monex.utiles.Constantes;
 
 /**
  * @jpf:controller
@@ -159,10 +160,12 @@ public class Controller extends PageFlowController
         CallableStatement call = null;
         try {
 //            RecuperaArchResult result = locator.getPkgConsultasMonExRemote().recuperaArch(new BigDecimal (0), "", new BigDecimal (id));
-            
+            Constantes.cargarArchivoME();
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+
             
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
     		conn = dataSource.getConnection();
             
         	 call = conn.prepareCall("{call SII.PKG_CONSULTAS_MON_EX.RECUPERA_ARCH(?,?,?,?,?)}");

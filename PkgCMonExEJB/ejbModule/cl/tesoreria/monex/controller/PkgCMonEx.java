@@ -19,16 +19,24 @@ import cl.tesoreria.monex.utilesVO.FormCmexVO;
 import cl.tesoreria.monex.utilesVO.GetResult;
 import cl.tesoreria.monex.utilesVO.IraCmexVO;
 import cl.tesoreria.monex.utilesVO.LLaveCmexVO;
+import cl.tesoreria.monex.utiles.Constantes;
+import cl.tesoreria.monex.utiles.XMLProcesosME;
+
+
 
 @Stateless(name = "PkgCMonEx", mappedName = "cl.tesoreria.monex.controller.PkgCMonEx")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class PkgCMonEx implements PkgCMonExRemote, PkgCMonExLocal {
+	
+	private static Logger logger = Logger.getLogger("cl.tesoreria.finpub.intranetConsultasME.PkgCMonEx");
+	Constantes.cargarArchivoME();
+	logger.info("Seguimiento ------ JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);     
 
-	@Resource(lookup = "java:/jdbc/siiDS") 
+	@Resource(lookup = Constantes.JNDI_DATASOURCE_SII) 
+
 	private DataSource dataSource;	
 	private PkgCMonExDAO pkgCMonExDAO;
-	private static Logger logger = Logger.getLogger("cl.tesoreria.finpub.intranetConsultasME.PkgCMonEx");
-	
+
 	private PkgCMonExDAO getPkgCMonExDAO() {
 		if (pkgCMonExDAO == null) {
 			pkgCMonExDAO = new PkgCMonExDAO();

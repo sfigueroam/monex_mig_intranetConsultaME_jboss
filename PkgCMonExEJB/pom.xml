@@ -73,5 +73,11 @@
 			<artifactId>MensajeME</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>cl.tesoreria.monex.utiles</groupId>
+			<artifactId>UtilesCMonEx</artifactId>
+			<version>${project.version}</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

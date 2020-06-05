@@ -31,6 +31,8 @@ import org.w3c.dom.NodeList;
 
 import cl.tesoreria.utiles.sql.TypesExt;
 
+import org.apache.log4j.Logger;
+import cl.tesoreria.monex.utiles.Constantes;
 //import cl.tesoreria.seguridad.delegate.SeguridadDelegate;
 //import cl.tesoreria.seguridad.profile.ejb.pkgseguridadintranet.PkgSeguridadIntranetException;
 //import cl.tesoreria.seguridad.profile.ejb.pkgseguridadintranet.SpSegBuscarTesoUserCaller;
@@ -462,9 +464,13 @@ public class Controller extends PageFlowController
         {
         	
         	System.out.println("iAppId: "+iAppId);
-        	System.out.println("iUser: "+iUser);
+            System.out.println("iUser: "+iUser);
+
+            Constantes.cargarArchivoME();
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
     		conn = dataSource.getConnection();
     		
     		System.out.println("conn: "+conn);
@@ -514,9 +520,12 @@ public class Controller extends PageFlowController
 	        {
 	        	
 	        	ResultSet rs = null;
-	        	
+                
+                Constantes.cargarArchivoME();
+                logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+
 	        	Context ctx = new InitialContext();
-	    		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
+	    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
 	    		Connection conn = dataSource.getConnection();
 	    		
 	            

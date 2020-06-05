@@ -1208,11 +1208,11 @@ public class Controller extends PageFlowController
             WSRentaMasivaMESoap msoap = impl.getWSRentaMasivaMESoap();
             msgOut = msoap.receiverXML(msg);
             */
-//        	Constantes.cargarArchivoME();
-//            logger.info("URL_WS=" + Constantes.URL_WS);            
+        	Constantes.cargarArchivoME();
+            logger.info("WS_ENDPOINT_URL_WSRENTAMASIVAME=" + Constantes.WS_ENDPOINT_URL_WSRENTAMASIVAME);            
             
 			WSRentaMasivaME service = new WSRentaMasivaMELocator();				
-			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL("http://localhost:8080/RentaMasivaWS/WSRentaMasivaME.jws"));
+			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL(Constantes.WS_ENDPOINT_URL_WSRENTAMASIVAME));
 //			WSRentaMasivaMESoap port = service.getWSRentaMasivaMESoap(new URL(Constantes.URL_WS));			
         	msgOut = port.receiverXML(msg);            
         }        
@@ -2293,9 +2293,11 @@ public class Controller extends PageFlowController
 		ArrayList resultSets = new ArrayList();
             try
             {
-            	
+                Constantes.cargarArchivoME();
+                logger.info("Seguimiento ------ JNDI_DATASOURCE_RECA=" + Constantes.JNDI_DATASOURCE_RECA);            
+                
             	Context ctx = new InitialContext();
-        		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
+        		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_RECA);
         		conn = dataSource.getConnection();
         		
             	
@@ -2517,9 +2519,11 @@ public class Controller extends PageFlowController
 		AdfValidaResult result = new AdfValidaResult();
 		try {
 			
-			
+            Constantes.cargarArchivoME();
+            logger.info("Seguimiento ------ JNDI_DATASOURCE_BEA=" + Constantes.JNDI_DATASOURCE_BEA);            
+                        
         	Context ctx = new InitialContext();
-    		DataSource dataSource = (DataSource)ctx.lookup("java:/jdbc/bea816DS");
+    		DataSource dataSource = (DataSource)ctx.lookup(Constantes.JNDI_DATASOURCE_BEA);
     		conn = dataSource.getConnection();
 			
 //	        AdfValidaResult result = new AdfValidaResult();

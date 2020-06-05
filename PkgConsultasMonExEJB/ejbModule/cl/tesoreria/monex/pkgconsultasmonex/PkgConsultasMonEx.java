@@ -10,13 +10,17 @@ import javax.ejb.TransactionAttributeType;
 import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
+import cl.tesoreria.monex.utiles.Constantes;
 
 @Stateless(name = "PkgConsultasMonEx", mappedName = "cl.tesoreria.monex.pkgconsultasmonex.PkgConsultasMonEx")
 @TransactionAttribute(TransactionAttributeType.REQUIRED)
 public class PkgConsultasMonEx implements PkgConsultasMonExRemote,
 		PkgConsultasMonExLocal {
 
-	@Resource(lookup = "java:/jdbc/siiDS") 
+	Constantes.cargarArchivoME();
+	logger.info("Seguimiento ------ JNDI_DATASOURCE_SII=" + Constantes.JNDI_DATASOURCE_SII);            
+		
+	@Resource(lookup = Constantes.JNDI_DATASOURCE_SII) 
 	private DataSource dataSource;
 	private static Logger logger = Logger.getLogger("cl.tesoreria.finpub.intranetConsultasME.PkgConsultasMonEx");
 	

@@ -23,6 +23,13 @@ public class Constantes {
   public static String URL_WS = "";
   public static String RECA_DATASOURCE = "";
   public static String URL_SERVICIOS = "";
+  public static String WS_ENDPOINT_URL_WSRENTAMASIVAME = "";
+  public static String JNDI_DATASOURCE_RECA = "";
+  public static String JNDI_DATASOURCE_BEA816 = "";
+  public static String JNDI_DATASOURCE_SII = "";
+  public static String JNDI_EJB_PKGCMONEXREMOTE = "";
+  public static String JNDI_EJB_PKGCONSULTASMONEXREMOTE = "";
+
   //public static final String FILE_NAME1 = "interfazCUT.properties";
   public static final String FILE_NAME_ME = "/META-INF/intranetConsultasME.properties";
   
@@ -63,7 +70,13 @@ public class Constantes {
          Properties prop = new Properties();
          prop.load(fileInputStream);
 
-         URL_WS = prop.getProperty("URL_WS");     
+         WS_ENDPOINT_URL_WSRENTAMASIVAME = prop.getProperty("WS.ENDPOINT.URL.WSRENTAMASIVAME");
+         JNDI_DATASOURCE_RECA = prop.getProperty("JNDI.DATASOURCE.RECA");
+         JNDI_DATASOURCE_BEA816 = prop.getProperty("JNDI.DATASOURCE.BEA816");
+         JNDI_DATASOURCE_SII = prop.getProperty("JNDI.DATASOURCE.SII");
+         JNDI_EJB_PKGCMONEXREMOTE = prop.getProperty("JNDI.EJB.PKGCMONEXREMOTE");
+         JNDI_EJB_PKGCONSULTASMONEXREMOTE = prop.getProperty("JNDI.EJB.PKGCONSULTASMONEXREMOTE");
+
 //         URL_WS = "http://dptest.tesoreria.cl:9120/RentaMasivaWS/WSRentaMasivaME.jws?wsdl";  
      } 
      finally 
