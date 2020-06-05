@@ -1,9 +1,15 @@
 package cl.tesoreria.monex.utiles; 
 
-import java.io.IOException;
+import java.io.InputStream;
 import java.util.Properties;
+
+import org.apache.log4j.Logger;
+
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+
 
 /**
  * <p>Title: </p>
@@ -18,6 +24,10 @@ import java.io.FileNotFoundException;
  * @version 1.0
  */
 public class Constantes {
+	
+  private static InputStream in = null;
+	
+  private static Logger logger = Logger.getLogger("cl.tesoreria.monex.utiles.Constantes"); 
 
   public static String URL_CUT = "";
   public static String URL_WS = "";
@@ -31,7 +41,7 @@ public class Constantes {
   public static String JNDI_EJB_PKGCONSULTASMONEXREMOTE = "";
 
   //public static final String FILE_NAME1 = "interfazCUT.properties";
-  public static final String FILE_NAME_ME = "/META-INF/intranetConsultasME.properties";
+  public static final String FILE_NAME_ME = "intranetConsultasME.properties";
   
   public Constantes() {
   }
@@ -42,18 +52,26 @@ public class Constantes {
   {
      FileInputStream fileInputStream = null;
      try{
-         fileInputStream = new FileInputStream(FILE_NAME_ME);
-         System.out.println("fileInputStream: " + fileInputStream);
-         Properties prop = new Properties();
-         prop.load(fileInputStream);
-
+    	 
+		in = Constantes.class.getClassLoader().getResourceAsStream(FILE_NAME_ME);
+        Properties prop = new Properties();
+        prop.load(in);
+        logger.info("------>>>>> Carga de propiedades Exitosa : " + FILE_NAME_ME );
+ 
+ 
          URL_CUT = prop.getProperty("URL_CUT");
          RECA_DATASOURCE = prop.getProperty("RECA_DATASOURCE");
          URL_SERVICIOS = prop.getProperty("URL_SERVICIOS");
      
-     } finally {
-         fileInputStream.close();
-     }
+         logger.info("------>>>>> Carga de propiedades Exitosa : ");
+         in.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			logger.info("Error en el metodo CargarProperties()1 : " + e);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			logger.info("Error en el metodo CargarProperties()2 : " + e);			            
+		}
   }
 
   /**
@@ -65,10 +83,12 @@ public class Constantes {
      FileInputStream fileInputStream = null;
      try
      {
-         fileInputStream = new FileInputStream(FILE_NAME_ME);
-         System.out.println("fileInputStream: " + fileInputStream);
-         Properties prop = new Properties();
-         prop.load(fileInputStream);
+         fileInputStream = new FileInputStream("RentaMonedaExtranjera.properties");
+ 		in = Constantes.class.getClassLoader().getResourceAsStream("RentaMonedaExtranjera.properties");
+        Properties prop = new Properties();
+        prop.load(in);
+        logger.info("------>>>>> Carga de propiedades Exitosa : \"RentaMonedaExtranjera.properties\"" );
+ 
 
          WS_ENDPOINT_URL_WSRENTAMASIVAME = prop.getProperty("WS.ENDPOINT.URL.WSRENTAMASIVAME");
          JNDI_DATASOURCE_RECA = prop.getProperty("JNDI.DATASOURCE.RECA");
@@ -78,11 +98,16 @@ public class Constantes {
          JNDI_EJB_PKGCONSULTASMONEXREMOTE = prop.getProperty("JNDI.EJB.PKGCONSULTASMONEXREMOTE");
 
 //         URL_WS = "http://dptest.tesoreria.cl:9120/RentaMasivaWS/WSRentaMasivaME.jws?wsdl";  
-     } 
-     finally 
-     {
-         fileInputStream.close();
-     }
+    
+        logger.info("------>>>>> Carga de propiedades Exitosa : ");
+       in.close();
+	} catch (FileNotFoundException e) {
+		// TODO Auto-generated catch block
+		logger.info("Error en el metodo CargarProperties()1 : " + e);
+	} catch (IOException e) {
+		// TODO Auto-generated catch block
+		logger.info("Error en el metodo CargarProperties()2 : " + e);			            
+	}
   }
 
 }
