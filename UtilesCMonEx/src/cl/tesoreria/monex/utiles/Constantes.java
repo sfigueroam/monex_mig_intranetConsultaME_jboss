@@ -65,10 +65,10 @@ public class Constantes {
          in.close();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			logger.info("Error en el metodo CargarProperties()1 : " + e);
+			logger.error("Error en el metodo CargarProperties():1 : " );
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			logger.info("Error en el metodo CargarProperties()2 : " + e);			            
+			logger.info("Error en el metodo CargarProperties():2 : ");			            
 		}
   }
 
