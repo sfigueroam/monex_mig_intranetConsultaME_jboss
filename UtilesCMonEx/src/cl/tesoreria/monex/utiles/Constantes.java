@@ -50,9 +50,7 @@ public class Constantes {
 
   public static void cargarArchivo() throws Exception
   {
-     FileInputStream fileInputStream = null;
      try{
-    	 
 		in = Constantes.class.getClassLoader().getResourceAsStream(FILE_NAME_ME);
         Properties prop = new Properties();
         prop.load(in);
@@ -80,14 +78,12 @@ public class Constantes {
   
   public static void cargarArchivoME() throws Exception
   {
-     FileInputStream fileInputStream = null;
      try
      {
-         fileInputStream = new FileInputStream("RentaMonedaExtranjera.properties");
- 		in = Constantes.class.getClassLoader().getResourceAsStream("RentaMonedaExtranjera.properties");
+ 		in = Constantes.class.getClassLoader().getResourceAsStream(FILE_NAME_ME);
         Properties prop = new Properties();
         prop.load(in);
-        logger.info("------>>>>> Carga de propiedades Exitosa : \"RentaMonedaExtranjera.properties\"" );
+        logger.info("------>>>>> Carga de propiedades Exitosa : " + FILE_NAME_ME);
  
 
          WS_ENDPOINT_URL_WSRENTAMASIVAME = prop.getProperty("WS.ENDPOINT.URL.WSRENTAMASIVAME");
