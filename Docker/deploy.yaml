@@ -1,0 +1,22 @@
+apiVersion: apps/v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Deployment
+metadata:
+  name: monex-intranet-consultas-me-deployment
+spec:
+  selector:
+    matchLabels:
+      app: monex-intranet-consultas-me-app
+  replicas: 2 # indica al controlador que ejecute 2 pods
+  template:
+    metadata:
+      labels:
+        app: monex-intranet-consultas-me-app
+    spec:
+      containers:
+      - name: monex-intranet-consultas-me-app
+        image: 604753321405.dkr.ecr.us-east-1.amazonaws.com/monex-consultas-me:T.2.0.0.0
+        ports:
+        - containerPort: 8080
+          name: api
+      imagePullSecrets:
+        - name: aws-monex-registry

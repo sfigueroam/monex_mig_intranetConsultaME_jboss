@@ -42,6 +42,7 @@
 							</ejbModule>					
 						</modules>
 							<displayName>intranetConsultasME</displayName>
+	                    	<finalName>intranetConsultasME-${project.version}</finalName>
 							<generateApplicationXml>true</generateApplicationXml>
 						</configuration>
 					</plugin>

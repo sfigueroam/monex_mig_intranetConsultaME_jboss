@@ -1,0 +1,16 @@
+apiVersion: v1 # Usa apps/v1beta2 para versiones anteriores a 1.9.0
+kind: Service
+
+metadata:
+  name: monex-intranet-consultas-me-app-service
+  labels:
+     app: monex-intranet-consultas-me-app
+spec:
+  selector:
+     app: monex-intranet-consultas-me-app
+  ports:
+     - name: monex-intranet-consultas-me-app
+       protocol: TCP
+       port: 8080
+       targetPort: 8080
+  type: LoadBalancer
