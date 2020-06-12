@@ -76,10 +76,15 @@
             </logger>
         </audit-log>
         <management-interfaces>
-            <http-interface security-realm="ManagementRealm">
+            <!-- ##MGMT_IFACE_REALM## -->
+            <http-interface console-enabled="true">
                 <http-upgrade enabled="true"/>
                 <socket-binding http="management-http"/>
             </http-interface>
+            <!--http-interface security-realm="ManagementRealm">
+                <http-upgrade enabled="true"/>
+                <socket-binding http="management-http"/>
+            </http-interface-->
         </management-interfaces>
         <access-control provider="simple">
             <role-mapping>
@@ -94,7 +99,7 @@
     <profile>
         <subsystem xmlns="urn:jboss:domain:logging:6.0">
             <console-handler name="CONSOLE">
-                <level name="INFO"/>
+                <level name="DEBUG"/>
                 <formatter>
                     <named-formatter name="COLOR-PATTERN"/>
                 </formatter>
@@ -144,17 +149,10 @@
         <subsystem xmlns="urn:jboss:domain:core-management:1.0"/>
         <subsystem xmlns="urn:jboss:domain:datasources:5.0">
             <datasources>
-                <datasource jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true">
-                    <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url>
-                    <driver>h2</driver>
-                    <security>
-                        <user-name>sa</user-name>
-                        <password>sa</password>
-                    </security>
-                </datasource>
-                <datasource jta="false" jndi-name="java:/jdbc/bea816DS" pool-name="bea816DS">
+               <datasource jndi-name="java:/jdbc/RecaOblDataSource" pool-name="RecaOblDataSource">
                     <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
-                    <driver>oracle</driver>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
                     <security>
                         <user-name>openshift</user-name>
                         <password>shift1408</password>
@@ -166,9 +164,10 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </datasource>
-                <datasource jta="false" jndi-name="java:/jdbc/seguridadDS" pool-name="seguridadDS">
+                <datasource jndi-name="java:/jdbc/seguridadDS" pool-name="seguridadDS">
                     <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
-                    <driver>oracle</driver>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
                     <security>
                         <user-name>openshift</user-name>
                         <password>shift1408</password>
@@ -180,9 +179,10 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </datasource>
-                <datasource jta="false" jndi-name="java:/jdbc/siiDS" pool-name="siiDS">
+                <datasource jndi-name="java:/jdbc/siiDS" pool-name="siiDS">
                     <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
-                    <driver>oracle</driver>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
                     <security>
                         <user-name>openshift</user-name>
                         <password>shift1408</password>
@@ -194,9 +194,10 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </datasource>
-                <datasource jta="false" jndi-name="java:/jdbc/ecusqlDS" pool-name="ecusqlDS">
+                <datasource jndi-name="java:/jdbc/ecusqlDS" pool-name="ecusqlDS">
                     <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
-                    <driver>oracle</driver>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
                     <security>
                         <user-name>openshift</user-name>
                         <password>shift1408</password>
@@ -208,9 +209,10 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </datasource>
-                <datasource jta="false" jndi-name="java:/jdbc/recaDS" pool-name="recaDS">
+                <datasource jndi-name="java:/jdbc/recaDS" pool-name="recaDS">
                     <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
-                    <driver>oracle</driver>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
                     <security>
                         <user-name>openshift</user-name>
                         <password>shift1408</password>
@@ -222,13 +224,27 @@
                         <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
                     </validation>
                 </datasource>
+                <datasource jndi-name="java:/jdbc/bea816DS" pool-name="bea816DS">
+                    <connection-url>jdbc:oracle:thin:@192.168.24.151:1521/teso</connection-url>
+                    <driver-class>oracle.jdbc.OracleDriver</driver-class>
+                    <driver>ojdbc</driver>
+                    <security>
+                        <user-name>openshift</user-name>
+                        <password>shift1408</password>
+                    </security>
+                    <validation>
+                        <valid-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleValidConnectionChecker"/>
+                        <background-validation>true</background-validation>
+                        <stale-connection-checker class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleStaleConnectionChecker"/>
+                        <exception-sorter class-name="org.jboss.jca.adapters.jdbc.extensions.oracle.OracleExceptionSorter"/>
+                    </validation>
+                </datasource>
+                <datasource jta="true" jndi-name="java:jboss/datasources/ExampleDS" pool-name="ExampleDS" enabled="true" use-java-context="true" statistics-enabled="${wildfly.datasources.statistics-enabled:${wildfly.statistics-enabled:false}}"> <connection-url>jdbc:h2:mem:test;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE</connection-url> <driver>h2</driver> <security> <user-name>sa</user-name> <password>sa</password> </security> </datasource><!-- ##DATASOURCES## -->
                 <drivers>
                     <driver name="h2" module="com.h2database.h2">
                         <xa-datasource-class>org.h2.jdbcx.JdbcDataSource</xa-datasource-class>
                     </driver>
-                    <driver name="oracle" module="com.oracle">
-                        <driver-class>oracle.jdbc.driver.OracleDriver</driver-class>
-                    </driver>
+                    <driver name="ojdbc" module="com.oracle"/>
                 </drivers>
             </datasources>
         </subsystem>
@@ -263,6 +279,10 @@
                 <stateful default-access-timeout="5000" cache-ref="simple" passivation-disabled-cache-ref="simple"/>
                 <singleton default-access-timeout="5000"/>
             </session-bean>
+            <mdb>
+                <resource-adapter-ref resource-adapter-name="${ejb.resource-adapter-name:activemq-ra.rar}"/>
+                <bean-instance-pool-ref pool-name="mdb-strict-max-pool"/>
+            </mdb>
             <pools>
                 <bean-instance-pools>
                     <strict-max-pool name="mdb-strict-max-pool" derive-size="from-cpu-count" instance-acquisition-timeout="5" instance-acquisition-timeout-unit="MINUTES"/>
@@ -280,7 +300,8 @@
             <timer-service thread-pool-name="default" default-data-store="default-file-store">
                 <data-stores>
                     <file-data-store name="default-file-store" path="timer-service-data" relative-to="jboss.server.data.dir"/>
-                </data-stores>
+               	<!-- ##DATASTORES## -->                
+		</data-stores>
             </timer-service>
             <remote connector-ref="http-remoting-connector" thread-pool-name="default">
                 <channel-creation-options>
@@ -297,6 +318,7 @@
             <default-security-domain value="other"/>
             <default-missing-method-permissions-deny-access value="true"/>
             <log-system-exceptions value="true"/>
+            
         </subsystem>
         <subsystem xmlns="urn:wildfly:elytron:4.0" final-providers="combined-providers" disallowed-providers="OracleUcrypto">
             <providers>
@@ -311,6 +333,7 @@
                 <file-audit-log name="local-audit" path="audit.log" relative-to="jboss.server.log.dir" format="JSON"/>
             </audit-logging>
             <security-domains>
+                
                 <security-domain name="ApplicationDomain" default-realm="ApplicationRealm" permission-mapper="default-permission-mapper">
                     <realm name="ApplicationRealm" role-decoder="groups-to-roles"/>
                     <realm name="local"/>
@@ -359,7 +382,16 @@
                 </permission-set>
             </permission-sets>
             <http>
-                <http-authentication-factory name="management-http-authentication" security-domain="ManagementDomain" http-server-mechanism-factory="global">
+                
+                <http-authentication-factory name="application-http-authentication" http-server-mechanism-factory="global" security-domain="ApplicationDomain">
+                    <mechanism-configuration>
+                        <mechanism mechanism-name="BASIC">
+                            <mechanism-realm realm-name="ApplicationRealm"/>
+                        </mechanism>
+                        <mechanism mechanism-name="FORM"/>
+                    </mechanism-configuration>
+                </http-authentication-factory>
+                <http-authentication-factory name="management-http-authentication" http-server-mechanism-factory="global" security-domain="ManagementDomain">
                     <mechanism-configuration>
                         <mechanism mechanism-name="DIGEST">
                             <mechanism-realm realm-name="ManagementRealm"/>
@@ -484,31 +516,20 @@
         <subsystem xmlns="urn:jboss:domain:resource-adapters:5.0"/>
         <subsystem xmlns="urn:jboss:domain:sar:1.0"/>
         <subsystem xmlns="urn:jboss:domain:security:2.0">
-            <security-domains>
-                <security-domain name="tgr">
-                    <authentication>
-                        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
-                            <module-option name="dsJndiName" value="java:/jdbc/bea816DS"/>
-                            <module-option name="principalsQuery" value="SELECT PASSWORD FROM bea816.USER_SECURITY WHERE trim(USER_NAME) = ?"/>
-                            <module-option name="rolesQuery" value="SELECT 'users', 'Roles' FROM bea816.USER_SECURITY WHERE trim(USER_NAME) = ?"/>
-                            <module-option name="hashAlgorithm" value="MD5"/>
-                            <module-option name="hashEncoding" value="base64"/>
-                        </login-module>
-                    </authentication>
-                </security-domain>
+        	<security-domains>
                 <security-domain name="other" cache-type="default">
                     <authentication>
                         <login-module code="Remoting" flag="optional">
                             <module-option name="password-stacking" value="useFirstPass"/>
                         </login-module>
-                        <login-module code="RealmDirect" flag="required">
+                        <login-module code="RealmDirect" flag="optional">
                             <module-option name="password-stacking" value="useFirstPass"/>
                         </login-module>
                     </authentication>
                 </security-domain>
                 <security-domain name="jboss-web-policy" cache-type="default">
                     <authorization>
-                        <policy-module code="Delegating" flag="required"/>
+                        <policy-module code="Delegating" flag="optional"/>
                     </authorization>
                 </security-domain>
                 <security-domain name="jaspitest" cache-type="default">
@@ -521,8 +542,19 @@
                 </security-domain>
                 <security-domain name="jboss-ejb-policy" cache-type="default">
                     <authorization>
-                        <policy-module code="Delegating" flag="required"/>
+                        <policy-module code="Delegating" flag="optional"/>
                     </authorization>
+                </security-domain>
+                  <security-domain name="tgr">
+                    <authentication>
+                        <login-module code="org.jboss.security.auth.spi.DatabaseServerLoginModule" flag="required">
+                            <module-option name="dsJndiName" value="java:/jdbc/bea816DS"/>
+                            <module-option name="principalsQuery" value="SELECT PASSWORD FROM bea816.USER_SECURITY WHERE trim(USER_NAME) = ?"/>
+                            <module-option name="rolesQuery" value="SELECT 'users', 'Roles' FROM bea816.USER_SECURITY WHERE trim(USER_NAME) = ?"/>
+                            <module-option name="hashAlgorithm" value="MD5"/>
+                            <module-option name="hashEncoding" value="base64"/>
+                        </login-module>
+                    </authentication>
                 </security-domain>
             </security-domains>
         </subsystem>
@@ -542,24 +574,28 @@
             <recovery-environment socket-binding="txn-recovery-environment" status-socket-binding="txn-status-manager"/>
             <object-store path="tx-object-store" relative-to="jboss.server.data.dir"/>
         </subsystem>
-        <subsystem xmlns="urn:jboss:domain:undertow:7.0" default-server="default-server" default-virtual-host="default-host" default-servlet-container="default" default-security-domain="other">
-            <buffer-cache name="default"/>
-            <server name="default-server">
-                <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
-                <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/>
-                <host name="default-host" alias="localhost">
-                    <location name="/" handler="welcome-content"/>
-                    <http-invoker security-realm="ApplicationRealm"/>
-                </host>
-            </server>
-            <servlet-container name="default">
-                <jsp-config/>
-                <websockets/>
-            </servlet-container>
-            <handlers>
-                <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
-            </handlers>
-        </subsystem>
+		
+		
+		<subsystem xmlns="urn:jboss:domain:undertow:7.0" default-server="default-server" default-virtual-host="default-host" default-servlet-container="default" default-security-domain="other">
+		    <buffer-cache name="default"/>
+		    <server name="default-server">
+		        <http-listener name="default" socket-binding="http" redirect-socket="https" enable-http2="true"/>
+		        <!-- <https-listener name="https" socket-binding="https" security-realm="ApplicationRealm" enable-http2="true"/> -->
+		        <host name="default-host" alias="localhost">
+		            <location name="/" handler="welcome-content"/>
+		            <http-invoker security-realm="ApplicationRealm"/>
+		        </host>
+		    </server>
+            <servlet-container name="default" allow-non-standard-wrappers="true" default-session-timeout="30">
+		        <jsp-config/>
+		        <websockets/>
+		    </servlet-container>
+		    <handlers>
+		        <file name="welcome-content" path="${jboss.home.dir}/welcome-content"/>
+		    </handlers>
+		</subsystem>
+		
+		
         <subsystem xmlns="urn:jboss:domain:webservices:2.0">
             <wsdl-host>${jboss.bind.address:127.0.0.1}</wsdl-host>
             <endpoint-config name="Standard-Endpoint-Config"/>
@@ -584,8 +620,8 @@
         <socket-binding name="management-http" interface="management" port="${jboss.management.http.port:9990}"/>
         <socket-binding name="management-https" interface="management" port="${jboss.management.https.port:9993}"/>
         <socket-binding name="ajp" port="${jboss.ajp.port:8009}"/>
-        <socket-binding name="http" port="${jboss.http.port:8080}"/>
-        <socket-binding name="https" port="${jboss.https.port:8443}"/>
+        <socket-binding name="http" port="${jboss.http.port:80}"/>
+        <socket-binding name="https" port="${jboss.https.port:443}"/>
         <socket-binding name="txn-recovery-environment" port="4712"/>
         <socket-binding name="txn-status-manager" port="4713"/>
         <outbound-socket-binding name="mail-smtp">
