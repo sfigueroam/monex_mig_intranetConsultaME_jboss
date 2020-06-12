@@ -12,12 +12,6 @@
         </title>
         <link rel="StyleSheet" href="../resources/css/teso.css" type="text/css" media="all">
 
-    <script type="text/javascript">
-    	function volver(action){
-    		document.location.href=action;
-    	}
-    
-    </script>
             
     </head>
 <%
@@ -118,12 +112,7 @@
                 <table width="90%"  border="0" cellpadding="0" cellspacing="0">
                     <tr>
                         <td width="50%" align="center" valign="baseline"> <netui:button value="Detalle" type="submit" styleClass="botones"/></td>
-                        
-                        
-                        <td width="50%" align="center" valign="baseline"> <input class="botones" type="button" value="Volver" onClick="volver('begin.do')" /></td>
-                        
-                        
-                        
+                        <td width="50%" align="center" valign="baseline"> <input class="botones" type="button" value="Volver" onClick="javascript:history.back()" /></td>
                     </tr>
                 </table>
                 </netui:form>  

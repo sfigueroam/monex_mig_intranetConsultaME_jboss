@@ -54,6 +54,7 @@ public class Controller extends PageFlowController
     })
     protected Forward begin()
     {
+        System.out.println("Seguimiento -------> Entre a begin()");
         ArrayList formularios = new ArrayList();
         try
         { 
@@ -112,6 +113,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goCuentas(GoCuentasForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goCuentas()");
     	System.out.println("form: "+form);
     	if (form.getRut() == null) {
     		System.out.println("pasando por sesion 1");
@@ -131,6 +133,8 @@ public class Controller extends PageFlowController
         String desde = form.getAnoDesde() + form.getMesDesde() + form.getDiaDesde();
         String hasta = form.getAnoHasta() + form.getMesHasta() + form.getDiaHasta();
         
+        System.out.println("Seguimiento -------> formulario: " + formulario.toString());
+
         if (rut.equals(""))
         {
             rut = "0";
@@ -144,7 +148,7 @@ public class Controller extends PageFlowController
             formulario = "0";
         }
         
-        
+        System.out.println("Seguimiento -------> formulario:" formulario.toString());
         this.getRequest().setAttribute("RUT_AUX", rut);
         this.getRequest().setAttribute("DV_AUX", dv);
         this.getRequest().setAttribute("FORM_AUX", formulario);
@@ -209,6 +213,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goMovimiento(GoMovimientoForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goMovimiento()");
     	
     	System.out.println("form.getItem(): "+form.getItem());
     	if (form.getItem() == null) {
@@ -363,6 +368,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goItem(GoMovimientoForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goItem()");
         String idItem = form.getItem();
         String numtrx = "0";
         boolean hayDatos = false;
@@ -502,6 +508,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goEnvios(GoEnviosForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goEnvios()");
         String desde = form.getAgnoDesde() + form.getMesDesde() + form.getDiaDesde();
         String hasta = form.getAgnoHasta() + form.getMesHasta() + form.getDiaHasta();
         String rut = "0";
@@ -568,6 +575,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goExportar(GoExportarForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goExportar()");
         String rut = form.getRut();
         String dv = form.getDv();
         String formulario = form.getFormulario();
@@ -756,6 +764,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goAutorizados(GoAutorizadosForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goAutorizados()");
         String formu = form.getForm();
         String rut = form.getRut();
         
@@ -813,6 +822,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goRectificados(rectificadosForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goRectificados()");
     	
     	System.out.println("1");
     	if (form.getRut() == null) {
@@ -941,6 +951,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goExpRect(rectificadosForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goExpRect()");
         String fechaDesde = form.getAnoDesde() + form.getMesDesde() + form.getDiaDesde();
         String fechaHasta = form.getAnoHasta() + form.getMesHasta() + form.getDiaHasta();
         String rut = form.getRut();
@@ -1095,6 +1106,7 @@ public class Controller extends PageFlowController
 	)
     protected Forward goExpRect2(rectificadosForm form)
     {
+        System.out.println("Seguimiento -------> Entre a goExpRect2()");
         String fechaDesde = form.getAnoDesde()+form.getMesDesde()+form.getDiaDesde();
         String fechaHasta = form.getAnoHasta()+form.getMesHasta()+form.getDiaHasta();
         String rut = form.getRut();
@@ -1202,6 +1214,7 @@ public class Controller extends PageFlowController
     
     private ArrayList getDatosCuentas(RowSet rs) throws Exception
     {
+        System.out.println("Seguimiento -------> Entre a getDatosCuentas()");
         boolean isData = rs.first();
         ArrayList lista = new ArrayList();
         SimpleDateFormat sdfFecha = new SimpleDateFormat("dd-MM-yyyy HH:mm");
@@ -1254,6 +1267,7 @@ public class Controller extends PageFlowController
     
     private String toRut (String rut) 
     {
+        System.out.println("Seguimiento -------> Entre a toRut()");
         int largo = rut.length();  
         Locale local = new Locale("es", "CL");
         NumberFormat formatNum = NumberFormat.getInstance(local);

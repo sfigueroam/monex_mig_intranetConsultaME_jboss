@@ -9,14 +9,6 @@
 <%@ taglib uri="http://beehive.apache.org/netui/tags-template-1.0" prefix="netui-template"%>
 <netui:html>
     <head>
-    
-    <script type="text/javascript">
-    	function volver(action){
-    		document.location.href=action;
-    	}
-    
-    </script>
-    
         <title>APLICACIÓN MONEDA EXTRANJERA</title>
         <link rel="StyleSheet" href="<%=request.getContextPath()%>/resources/css/teso.css" type="text/css" media="all">
         <script type="text/JavaScript" src="<%=request.getContextPath()%>/resources/js/functions.js" language="JavaScript"></script>
@@ -219,7 +211,7 @@
             <input type="hidden" name="rut" value="<%=rut%>">
             <input type="hidden" name="dv" value="<%=dv%>">
             
-            <input class="botones" type="button" value="Volver" onClick="volver('rectificados.jsp')" />
+            <input class="botones" type="button" value="Volver" onClick="javascript:history.back()" />
             <input type="button" value="Ver Item" class="botones" onclick="enviaForm(this.form,'GoMovimientoForm','goItem.do');">            
             <input type="button" value="Ver Rectificado" class="botones"  onclick="enviaForm(this.form,'rectificadosForm','goRectificados.do');">
             <input type="button" value="Exportar" class="botones"  onclick="enviaForm(this.form,'rectificadosForm','goExpRect.do');">    

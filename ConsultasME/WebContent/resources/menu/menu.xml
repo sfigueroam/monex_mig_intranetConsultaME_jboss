@@ -6,7 +6,7 @@
         <toc-node label="Consulta Envíos" url="../consultaCuentas/envios.jsp" />
         <toc-node label="Consulta Autorizados" url="../consultaCuentas/autorizados.jsp" />
         <toc-node label="Casos Rectificados" url="../consultaCuentas/rectificados.jsp" />
-        <toc-node label="Periodos Contables" url="../pcontab/consultar/administrar.do">
+        <toc-node label="Periodos Contables" url="../pcontab/actualizar/administrar.do">
             <rol-allowed name="1608" />
         </toc-node>
         <toc-node label="Periodos Contables" url="../pcontab/consultar/consulta.do">

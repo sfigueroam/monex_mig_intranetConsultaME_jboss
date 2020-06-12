@@ -30,7 +30,7 @@
         function actualizar(valor) 
         {
             document.getElementById('pcontab').value = valor;
-            document.getElementById('formId').action = 'confirmar.do';
+            document.getElementById('formId').action = '../actualizar/begin.do';
             document.getElementById('formId').submit();
             
         }
