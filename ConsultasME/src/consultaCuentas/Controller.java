@@ -148,7 +148,7 @@ public class Controller extends PageFlowController
             formulario = "0";
         }
         
-        System.out.println("Seguimiento -------> formulario:" formulario.toString());
+        System.out.println("Seguimiento -------> formulario:" + formulario.toString());
         this.getRequest().setAttribute("RUT_AUX", rut);
         this.getRequest().setAttribute("DV_AUX", dv);
         this.getRequest().setAttribute("FORM_AUX", formulario);
