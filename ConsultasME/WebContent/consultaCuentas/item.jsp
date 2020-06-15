@@ -10,6 +10,15 @@
 <%@ taglib uri="http://beehive.apache.org/netui/tags-template-1.0" prefix="netui-template"%>
 <netui:html>
     <head>
+    
+
+    <script type="text/javascript">
+    	function volver(action){
+    		document.location.href=action;
+    	}
+    
+    </script>
+        
         <title>
           APLICACIÓN MONEDA EXTRANJERA
         </title>
@@ -70,7 +79,7 @@ System.out.println("whereBack JSP1: "+whereBack);
     if ( "goRectificados".equals(whereBack) )
     {
 %>                
-                <input class="botones" type="button" value="Aceptar" onClick="javascript:history.back()" />
+                <input class="botones" type="button" value="Aceptar" onClick="volver('goRectificados.do')" />
 <%
     }
 %>

@@ -369,6 +369,16 @@ public class Controller extends PageFlowController
     protected Forward goItem(GoMovimientoForm form)
     {
         System.out.println("Seguimiento -------> Entre a goItem()");
+
+    	System.out.println("form.getItem(): "+form.getItem());
+    	if (form.getItem() == null) {
+    		System.out.println("GoMovimientoForm pasando por sesion 1");
+    		form = (GoMovimientoForm) getSession().getAttribute("GoMovimientoFormSession");
+    	}else {
+    		System.out.println("GoMovimientoForm pasando por sesion 2");
+    		getSession().setAttribute("GoMovimientoFormSession", form);
+    	}
+        
         String idItem = form.getItem();
         String numtrx = "0";
         boolean hayDatos = false;
@@ -473,6 +483,7 @@ public class Controller extends PageFlowController
                 
                 //this.getRequest().setAttribute("items", items);
                 //this.getRequest().setAttribute("RES", rs);
+                getSession().setAttribute("whereBack","goItem");
                 this.getRequest().setAttribute("lista", lista);
                 return new Forward("success");
             }
