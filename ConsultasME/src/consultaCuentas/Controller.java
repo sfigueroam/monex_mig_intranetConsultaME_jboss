@@ -173,6 +173,7 @@ public class Controller extends PageFlowController
             if (isData) 
             {
                 ArrayList lista = this.getDatosCuentas(rs);
+                getSession().setAttribute("whereBack","goCuentas");
                 this.getRequest().setAttribute("lista", lista);
                 return new Forward("success");
             }
@@ -368,17 +369,7 @@ public class Controller extends PageFlowController
     })
     protected Forward goItem(GoMovimientoForm form)
     {
-        System.out.println("Seguimiento -------> Entre a goItem()");
-
-    	System.out.println("form.getItem(): "+form.getItem());
-    	if (form.getItem() == null) {
-    		System.out.println("GoMovimientoForm pasando por sesion 1");
-    		form = (GoMovimientoForm) getSession().getAttribute("GoMovimientoFormSession");
-    	}else {
-    		System.out.println("GoMovimientoForm pasando por sesion 2");
-    		getSession().setAttribute("GoMovimientoFormSession", form);
-    	}
-        
+        System.out.println("Seguimiento -------> Entre a goItem()");   
         String idItem = form.getItem();
         String numtrx = "0";
         boolean hayDatos = false;
@@ -483,7 +474,6 @@ public class Controller extends PageFlowController
                 
                 //this.getRequest().setAttribute("items", items);
                 //this.getRequest().setAttribute("RES", rs);
-                getSession().setAttribute("whereBack","goItem");
                 this.getRequest().setAttribute("lista", lista);
                 return new Forward("success");
             }
@@ -520,6 +510,10 @@ public class Controller extends PageFlowController
     protected Forward goEnvios(GoEnviosForm form)
     {
         System.out.println("Seguimiento -------> Entre a goEnvios()");
+        System.out.println("Seguimiento -------> form:" +  form.toString());
+        if (form.getAgnoDesde() == null) {
+        	form = (GoEnviosForm) getSession().getAttribute("GoEnviosFormSession");
+        }
         String desde = form.getAgnoDesde() + form.getMesDesde() + form.getDiaDesde();
         String hasta = form.getAgnoHasta() + form.getMesHasta() + form.getDiaHasta();
         String rut = "0";
@@ -527,14 +521,17 @@ public class Controller extends PageFlowController
         String formulario = "0";
         String folio = "0";
         String vencimiento = "";
-        
+        System.out.println("Seguimiento -------> desde:" +  desde.toString());
+        System.out.println("Seguimiento -------> hasta:" +  hasta.toString());
         
         
         if (desde.equals("") && hasta.equals(""))
         {
             this.getRequest().setAttribute("msje", "Debe ingresar por lo menos la Fecha Recepción desde");
             return new Forward("error");
-        }  
+        } else {
+        	getSession().setAttribute("GoEnviosFormSession", form);
+        }
 
         this.getRequest().setAttribute("RUT_AUX", rut);
         this.getRequest().setAttribute("DV_AUX", dv);

@@ -10,6 +10,12 @@
     <head>
     
     
+    <script type="text/javascript">
+    	function volver(action){
+    		document.location.href=action;
+    	}
+    
+    </script>
         <title>
            APLICACIÓN MONEDA EXTRANJERA
         </title>
@@ -98,7 +104,8 @@
                 </table>
                 <br/>
                 <netui:button value="ITEM" type="submit" styleClass="botones"/>
-                <input class="botones" type="button" value="Volver" onClick="javascript:history.back()" />
+                <input class="botones" type="button" value="Volver" onClick="volver('goEnvios.do')" />
+                
             </div>
         </netui:form>
 <%  
